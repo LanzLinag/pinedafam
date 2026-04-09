@@ -1,0 +1,219 @@
+.birthday-wrapper {
+  background: #05070a;
+  min-height: 100vh;
+  width: 100%;
+  /* Increased padding to match the luxury feel of the Album Screen */
+  padding: 160px 40px 100px 40px; 
+  color: white;
+  position: relative;
+  overflow-x: hidden;
+  
+  /* 1. ENTRANCE ANIMATION */
+  will-change: transform, opacity;
+  animation: premiumFadeUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* 2. REFINED BACK BUTTON FOR THIS SCREEN */
+.birthday-wrapper .back-home-btn {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 100px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.birthday-wrapper .back-home-btn:hover {
+  background: white;
+  color: black;
+  transform: translateX(-5px);
+}
+
+.birthday-header {
+  text-align: center;
+  margin-bottom: 80px;
+  position: relative;
+}
+
+.birthday-glow {
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(125, 211, 252, 0.1) 0%, transparent 70%);
+  z-index: 0;
+}
+
+/* CALENDAR GRID LAYOUT */
+.calendar-grid-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.month-card {
+  background: #0f121a;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  /* 3. SMOOTH TRANSITION FOR HOVER */
+  transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.month-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  border-color: rgba(125, 211, 252, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.month-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.month-header h3 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.count-tag {
+  font-size: 0.6rem;
+  background: rgba(125, 211, 252, 0.1);
+  color: #7dd3fc;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.mini-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.day-dot {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: #475569;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.active-day {
+  background: #7dd3fc;
+  color: #05070a;
+  box-shadow: 0 0 15px rgba(125, 211, 252, 0.4);
+  font-weight: 900;
+}
+
+.birthday-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.birthday-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  /* 4. STAGGERED FADE IN */
+  opacity: 0;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* This adds a slight delay to each person in the list */
+.birthday-row:nth-child(1) { animation-delay: 0.1s; }
+.birthday-row:nth-child(2) { animation-delay: 0.2s; }
+.birthday-row:nth-child(3) { animation-delay: 0.3s; }
+
+.b-day {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #7dd3fc;
+  min-width: 30px;
+}
+
+.b-name {
+  font-size: 1.1rem; /* Slightly larger for the nickname list */
+  font-weight: 800;
+  margin: 0;
+}
+
+.no-birthdays {
+  font-size: 0.8rem;
+  color: #334155;
+  text-align: center;
+  font-style: italic;
+}
+
+/* KEYFRAMES */
+@keyframes premiumFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateX(-10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+/* Update this in AlbumScreen.css and BirthdayScreen.css */
+
+.album-header, .birthday-header {
+  /* Match the header height (70px) + 20px of extra space */
+  padding-top: 0.5px !important; 
+  padding-bottom: 20px; /* Adjust bottom space before the grid */
+  margin-bottom: 0;
+}
+
+.giant-title {
+  margin-top: 0 !important; /* Remove any default top margin */
+  line-height: 0.8; /* Pulls the text bounds tighter */
+}
+
+.wide-subtitle {
+  margin-top: 10px; /* Bring the subtitle closer to the title */
+  margin-bottom: 30px;
+}
