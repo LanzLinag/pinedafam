@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
 import membersData from "../data/members.js";
 import './MemberScreen.css'; 
 
 const MemberScreen = () => {
-  const navigate = useNavigate();
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [activePhoto, setActivePhoto] = useState(null);
 
@@ -43,46 +41,11 @@ const MemberScreen = () => {
     <div className={`ultra-wide-wrapper ${activePhoto ? 'lock-scroll' : ''}`}>
       <div className="smooth-entrance">
         
-        {/* TOP LEFT: BACK BUTTON */}
-        <button className="back-home-btn" onClick={() => navigate('/')}>
-          <span className="back-icon">←</span>
-          <span className="back-text">Back</span>
-        </button>
-
-        {/* FIXED: TOP RIGHT NAVIGATION GROUP */}
-        {/* We use inline styles to override the 'absolute' positioning on the buttons themselves */}
-        <div style={{ 
-          position: 'absolute', 
-          top: '30px', 
-          right: '30px', 
-          display: 'flex', 
-          gap: '12px', 
-          zIndex: 100 
-        }}>
-          <button 
-            className="view-birthdays-btn" 
-            onClick={() => navigate('/birthdays')}
-            style={{ position: 'static', right: 'auto', top: 'auto' }}
-          >
-            <span className="btn-text">Birthdays</span>
-            <span className="btn-icon">🎂</span>
-          </button>
-          
-          <button 
-            className="view-birthdays-btn" 
-            onClick={() => navigate('/albums')}
-            style={{ position: 'static', right: 'auto', top: 'auto' }}
-          >
-            <span className="btn-text">Albums</span>
-            <span className="btn-icon">📸</span>
-          </button>
-        </div>
-
         <header className="main-banner">
           <div className="glow-effect"></div>
           <div className="banner-content">
             <h1 className="giant-title">Pineda Family</h1>
-            <p className="wide-subtitle">Love • Joy • Hope</p>
+            <p className="wide-subtitle">Jorbap • 123 • Jojo</p>
 
             <div className="filter-hierarchy">
               <div className="universal-row">
@@ -151,7 +114,7 @@ const MemberScreen = () => {
                         </div>
                       </div>
                     </div>
-                ))}
+                  ))}
               </div>
             </section>
           ))}
@@ -160,8 +123,8 @@ const MemberScreen = () => {
 
       {activePhoto && (
         <div className="popup-overlay" onClick={() => setActivePhoto(null)}>
-          <button className="popup-close-btn" onClick={() => setActivePhoto(null)}>&times;</button>
           <div className="popup-box" onClick={(e) => e.stopPropagation()}>
+             <button className="popup-close-btn" onClick={() => setActivePhoto(null)}>&times;</button>
              <img src={activePhoto} alt="Full view" className="popup-img-full" />
           </div>
         </div>

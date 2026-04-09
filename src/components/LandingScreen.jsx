@@ -21,7 +21,7 @@ const LandingScreen = () => {
           
           <p className="landing-intro-text">
             Welcome to the digital home of the Pineda Family. 
-            A curated space dedicated to our families
+            A virtual space dedicated to our families
             and the memories that bring us together.
           </p>
 
@@ -32,7 +32,7 @@ const LandingScreen = () => {
         </div>
 
         <footer className="split-footer" style={{ left: '50%', transform: 'translateX(-50%)' }}>
-          <span>123 • Jorbap • Jojo</span>
+          <span>Jorbap • 123 • Jojo</span>
         </footer>
       </div>
     </div>

@@ -198,3 +198,22 @@
     transform: translateX(0); 
   }
 }
+
+/* Update this in AlbumScreen.css and BirthdayScreen.css */
+
+.album-header, .birthday-header {
+  /* Match the header height (70px) + 20px of extra space */
+  padding-top: 0.5px !important; 
+  padding-bottom: 20px; /* Adjust bottom space before the grid */
+  margin-bottom: 0;
+}
+
+.giant-title {
+  margin-top: 0 !important; /* Remove any default top margin */
+  line-height: 0.8; /* Pulls the text bounds tighter */
+}
+
+.wide-subtitle {
+  margin-top: 10px; /* Bring the subtitle closer to the title */
+  margin-bottom: 30px;
+}

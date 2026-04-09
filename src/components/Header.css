@@ -1,0 +1,79 @@
+.app-header {
+  position: absolute; /* Pins to top, scrolls away */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px; /* Increased from 60px */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px; /* More breathing room on sides */
+  z-index: 10000;
+  background: rgba(5, 7, 10, 0.4); 
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: none !important;
+  box-sizing: border-box;
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Slightly wider gaps */
+}
+
+.nav-pill-btn, .back-home-btn-fixed {
+  all: unset;
+  background: rgba(125, 211, 252, 0.08);
+  border: 1px solid rgba(125, 211, 252, 0.3);
+  color: #7dd3fc;
+  padding: 10px 20px; /* Increased from 6px 14px */
+  border-radius: 100px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800; /* Made slightly bolder */
+  text-transform: uppercase;
+  font-size: 0.75rem; /* Increased from 0.65rem */
+  letter-spacing: 1px; /* Wider spacing for better readability */
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+  white-space: nowrap;
+}
+
+.nav-pill-btn:hover, 
+.nav-pill-btn.active,
+.back-home-btn-fixed:hover {
+  background: #7dd3fc;
+  color: #05070a;
+  transform: translateY(-2px); /* Slightly higher lift */
+  box-shadow: 0 6px 15px rgba(125, 211, 252, 0.3);
+  border-color: #7dd3fc;
+}
+
+.back-home-btn-fixed {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+}
+
+/* Icons within buttons */
+.btn-icon {
+  font-size: 1.1rem; /* Slightly larger icons */
+}
+
+@media (max-width: 768px) {
+  .app-header { 
+    padding: 0 15px; 
+    height: 70px; /* Better mobile scale */
+  }
+  
+  .btn-text, .back-text { 
+    display: none; 
+  }
+  
+  .nav-pill-btn, .back-home-btn-fixed {
+    padding: 12px;
+    font-size: 1.2rem;
+  }
+}

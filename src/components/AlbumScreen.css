@@ -139,3 +139,38 @@
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Styling for the disabled state */
+.drive-button.disabled {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #475569 !important; /* Muted grey text */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: not-allowed; /* Shows the "no-entry" circle on hover */
+  box-shadow: none !important;
+  transform: none !important; /* Stops the hover lift effect */
+}
+
+/* Ensure the hover effect only applies to active buttons */
+.drive-button:not(:disabled):hover {
+  background: #7dd3fc;
+  box-shadow: 0 0 20px rgba(125, 211, 252, 0.3);
+}
+
+/* Update this in AlbumScreen.css and BirthdayScreen.css */
+
+.album-header, .birthday-header {
+  /* Match the header height (70px) + 20px of extra space */
+  padding-top: 5px !important; 
+  padding-bottom: 40px; /* Adjust bottom space before the grid */
+  margin-bottom: 0;
+}
+
+.giant-title {
+  margin-top: 0 !important; /* Remove any default top margin */
+  line-height: 0.8; /* Pulls the text bounds tighter */
+}
+
+.wide-subtitle {
+  margin-top: 10px; /* Bring the subtitle closer to the title */
+  margin-bottom: 30px;
+}

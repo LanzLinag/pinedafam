@@ -1,10 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import membersData from '../data/members.js';
 import './BirthdayScreen.css';
 
 const BirthdayScreen = () => {
-  const navigate = useNavigate();
   const months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -58,65 +56,61 @@ const BirthdayScreen = () => {
   };
 
   return (
-    <div className="birthday-wrapper animate-in">
-      {/* Back to directory */}
-      <button className="back-home-btn" onClick={() => navigate('/members')}>
-        <span className="back-icon">←</span>
-        <span className="back-text">Back</span>
-      </button>
+    <div className="birthday-wrapper ultra-wide-wrapper">
+      <div className="smooth-entrance">
+        <header className="birthday-header">
+          <div className="birthday-glow"></div>
+          <div className="header-content">
+            <h1 className="giant-title">Celebrations</h1>
+            <p className="wide-subtitle">Annual Family Birthdays</p>
+            
+            {nearest && (
+              <p className="nearing-text">
+                Next Celebration: <span className="highlight-white">@{nearest.nickname || nearest.name}</span> is nearing!
+              </p>
+            )}
+          </div>
+        </header>
 
-      <header className="birthday-header">
-        <div className="birthday-glow"></div>
-        <div className="header-content">
-          <h1 className="giant-title">Celebrations</h1>
-          <p className="wide-subtitle">Annual Family Birthdays</p>
-          
-          {nearest && (
-            <p className="nearing-text" style={{ color: 'var(--light-blue)', fontWeight: '800', marginTop: '10px', textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.8rem' }}>
-              Next Celebration: <span style={{ color: '#fff' }}>@{nearest.nickname || nearest.name}</span> is nearing!
-            </p>
-          )}
-        </div>
-      </header>
+        <main className="calendar-grid-container">
+          {months.map((month, index) => {
+            const birthdays = getBirthdaysForMonth(index);
 
-      <main className="calendar-grid-container">
-        {months.map((month, index) => {
-          const birthdays = getBirthdaysForMonth(index);
+            return (
+              <div key={month} className="month-card">
+                <div className="month-header">
+                  <h3>{month}</h3>
+                  <span className="count-tag">{birthdays.length}</span>
+                </div>
 
-          return (
-            <div key={month} className="month-card">
-              <div className="month-header">
-                <h3>{month}</h3>
-                <span className="count-tag">{birthdays.length}</span>
-              </div>
+                <div className="mini-calendar">
+                  {daysOfWeek.map(d => (
+                    <div key={d} className="weekday-label">{d}</div>
+                  ))}
+                  {renderCalendarDays(index)}
+                </div>
 
-              <div className="mini-calendar">
-                {daysOfWeek.map(d => (
-                  <div key={d} className="weekday-label">{d}</div>
-                ))}
-                {renderCalendarDays(index)}
-              </div>
-
-              <div className="birthday-list">
-                {birthdays.length > 0 ? (
-                  birthdays.map(m => (
-                    <div key={m.id || m._id} className="birthday-row">
-                      <div className="b-day-box">
-                        <span className="b-day">{new Date(m.birthday).getDate()}</span>
+                <div className="birthday-list">
+                  {birthdays.length > 0 ? (
+                    birthdays.map(m => (
+                      <div key={m.id || m._id} className="birthday-row">
+                        <div className="b-day-box">
+                          <span className="b-day">{new Date(m.birthday).getDate()}</span>
+                        </div>
+                        <div className="b-info">
+                          <h4 className="b-name">@{m.nickname || m.name}</h4>
+                        </div>
                       </div>
-                      <div className="b-info">
-                        <h4 className="b-name">@{m.nickname || m.name}</h4>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <p className="no-birthdays">No celebrations</p>
-                )}
+                    ))
+                  ) : (
+                    <p className="no-birthdays">No celebrations</p>
+                  )}
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </main>
+            );
+          })}
+        </main>
+      </div>
     </div>
   );
 };
