@@ -1,0 +1,41 @@
+/* --- FOOTER: STAYS AT THE BOTTOM OF THE PAGE --- */
+.pineda-footer {
+  /* Relative makes it sit naturally after your last piece of content */
+  position: relative !important; 
+  width: 100% !important;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #05070a; 
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  
+  /* This ensures it stays at the bottom if the page has little content */
+  margin-top: auto; 
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-copyright {
+  color: #64748b; /* Uniform gray color */
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Mobile Tweak */
+@media (max-width: 768px) {
+  .pineda-footer {
+    height: 50px;
+  }
+  .footer-copyright {
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+  }
+}
