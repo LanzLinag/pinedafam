@@ -6,7 +6,7 @@ export default [
     nickname: "Lolo Bot",
     familyGroup: "OG",
     birthday: "1945-12-22",
-    location: "San Jose",
+    location: "Heaven",
     image: new URL("./lolo_bot.jpg", import.meta.url).href,
     description: "JoJo"
   },

@@ -1,9 +1,23 @@
-import React from "react";
-import MemberScreen from "./components/MemberScreen";
-import "./index.css"; // Your root CSS with :root variables
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LandingScreen from './components/LandingScreen';
+import MemberScreen from './components/MemberScreen';
+import BirthdayScreen from './components/BirthdayScreen';
+import AlbumScreen from './components/AlbumScreen'; // Import the new screen
 
 function App() {
-  return <MemberScreen />;
+  return (
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<LandingScreen />} />
+          <Route path="/members" element={<MemberScreen />} />
+          <Route path="/birthdays" element={<BirthdayScreen />} />
+          <Route path="/albums" element={<AlbumScreen />} /> {/* New Route */}
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
 export default App;

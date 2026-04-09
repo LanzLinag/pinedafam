@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import membersData from "../data/members.js";
 import './MemberScreen.css'; 
 
 const MemberScreen = () => {
+  const navigate = useNavigate();
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [activePhoto, setActivePhoto] = useState(null);
 
-  // Hardcoded hierarchy order as requested
   const customOrder = ["OG", "Linag", "Pineda", "Soliman", "Cahili", "Quito"];
-
   const getFamilyGroup = (m) => (m.familyGroup || "Other").trim();
-
-  // Filter available groups based on your custom order
+  
   const allGroups = customOrder.filter(group => 
     membersData.some(m => getFamilyGroup(m).toLowerCase() === group.toLowerCase())
   );
@@ -42,93 +41,126 @@ const MemberScreen = () => {
 
   return (
     <div className={`ultra-wide-wrapper ${activePhoto ? 'lock-scroll' : ''}`}>
-      <header className="main-banner">
-        <div className="glow-effect"></div>
-        <div className="banner-content">
-          <h1 className="giant-title">Pineda Family</h1>
-          <p className="wide-subtitle">Love • Joy • Hope</p>
+      <div className="smooth-entrance">
+        
+        {/* TOP LEFT: BACK BUTTON */}
+        <button className="back-home-btn" onClick={() => navigate('/')}>
+          <span className="back-icon">←</span>
+          <span className="back-text">Back</span>
+        </button>
 
-          {/* TWO-TIER FILTER SYSTEM */}
-          <div className="filter-hierarchy">
-            {/* Top Tier: Universal Filter */}
-            <div className="universal-row">
-              <button 
-                onClick={() => setSelectedGroup(null)} 
-                className={`pill universal-pill ${selectedGroup === null ? 'active' : ''}`}
-              >
-                All Members
-              </button>
-            </div>
+        {/* FIXED: TOP RIGHT NAVIGATION GROUP */}
+        {/* We use inline styles to override the 'absolute' positioning on the buttons themselves */}
+        <div style={{ 
+          position: 'absolute', 
+          top: '30px', 
+          right: '30px', 
+          display: 'flex', 
+          gap: '12px', 
+          zIndex: 100 
+        }}>
+          <button 
+            className="view-birthdays-btn" 
+            onClick={() => navigate('/birthdays')}
+            style={{ position: 'static', right: 'auto', top: 'auto' }}
+          >
+            <span className="btn-text">Birthdays</span>
+            <span className="btn-icon">🎂</span>
+          </button>
+          
+          <button 
+            className="view-birthdays-btn" 
+            onClick={() => navigate('/albums')}
+            style={{ position: 'static', right: 'auto', top: 'auto' }}
+          >
+            <span className="btn-text">Albums</span>
+            <span className="btn-icon">📸</span>
+          </button>
+        </div>
 
-            {/* Bottom Tier: Surname Specifics */}
-            <div className="surname-row">
-              {allGroups.map((group) => (
-                <button
-                  key={group}
-                  onClick={() => setSelectedGroup(group)}
-                  className={`pill surname-pill ${selectedGroup === group ? 'active' : ''}`}
+        <header className="main-banner">
+          <div className="glow-effect"></div>
+          <div className="banner-content">
+            <h1 className="giant-title">Pineda Family</h1>
+            <p className="wide-subtitle">Love • Joy • Hope</p>
+
+            <div className="filter-hierarchy">
+              <div className="universal-row">
+                <button 
+                  onClick={() => setSelectedGroup(null)} 
+                  className={`pill universal-pill ${selectedGroup === null ? 'active' : ''}`}
                 >
-                  {group}
+                  All Members
                 </button>
-              ))}
+              </div>
+              <div className="surname-row">
+                {allGroups.map((group) => (
+                  <button
+                    key={group}
+                    onClick={() => setSelectedGroup(group)}
+                    className={`pill surname-pill ${selectedGroup === group ? 'active' : ''}`}
+                  >
+                    {group}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <main className="edge-to-edge-main">
-        {sectionOrder.map((groupName) => (
-          <section key={groupName} className="group-block">
-            <div className="group-header">
-              <h2 className="group-title-text">{groupName} Group</h2>
-              <div className="full-line"></div>
-            </div>
+        <main className="edge-to-edge-main">
+          {sectionOrder.map((groupName) => (
+            <section key={groupName} className="group-block">
+              <div className="group-header">
+                <h2 className="group-title-text">{groupName} Group</h2>
+                <div className="full-line"></div>
+              </div>
 
-            <div className="full-width-grid">
-              {groupedMembers[groupName]
-                .sort((a, b) => new Date(a.birthday) - new Date(b.birthday))
-                .map((member) => (
-                  <div key={member._id || member.id} className="wide-card">
-                    <div className="wide-card-media" onClick={() => setActivePhoto(member.image)}>
-                      {member.image ? (
-                        <>
-                          <img src={member.image} alt={member.name} className="img-fit" />
-                          <div className="img-overlay">
-                            <span>Open Full Image</span>
-                          </div>
-                        </>
-                      ) : (
-                        <div className="no-media">No Photo</div>
-                      )}
-                    </div>
-                    
-                    <div className="wide-card-info">
-                      <div className="name-wrap">
-                        <h3 className="name-bold">{member.name}</h3>
-                        <p className="handle">@{member.nickname || 'Member'}</p>
+              <div className="full-width-grid">
+                {groupedMembers[groupName]
+                  .sort((a, b) => new Date(a.birthday) - new Date(b.birthday))
+                  .map((member) => (
+                    <div key={member._id || member.id} className="wide-card">
+                      <div className="wide-card-media" onClick={() => setActivePhoto(member.image)}>
+                        {member.image ? (
+                          <>
+                            <img src={member.image} alt={member.name} className="img-fit" />
+                            <div className="img-overlay">
+                              <span>View Full Image</span>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="no-media">No Photo</div>
+                        )}
                       </div>
                       
-                      <div className="data-footer">
-                        <div className="data-row">
-                          <span className="label">Birthdate</span>
-                          <span className="value">{formatBirthday(member.birthday)}</span>
+                      <div className="wide-card-info">
+                        <div className="name-wrap">
+                          <h3 className="name-bold">{member.name}</h3>
+                          <p className="handle">@{member.nickname || 'Member'}</p>
                         </div>
-                        <div className="location-row">
-                          <span className="pin">📍</span>
-                          <span className="loc">{member.location || "Earth"}</span>
+                        <div className="data-footer">
+                          <div className="data-row">
+                            <span className="label">Birthdate</span>
+                            <span className="value">{formatBirthday(member.birthday)}</span>
+                          </div>
+                          <div className="location-row">
+                            <span className="pin">📍</span>
+                            <span className="loc">{member.location || "Earth"}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-              ))}
-            </div>
-          </section>
-        ))}
-      </main>
+                ))}
+              </div>
+            </section>
+          ))}
+        </main>
+      </div>
 
       {activePhoto && (
         <div className="popup-overlay" onClick={() => setActivePhoto(null)}>
-          <button className="popup-close-btn">&times;</button>
+          <button className="popup-close-btn" onClick={() => setActivePhoto(null)}>&times;</button>
           <div className="popup-box" onClick={(e) => e.stopPropagation()}>
              <img src={activePhoto} alt="Full view" className="popup-img-full" />
           </div>
