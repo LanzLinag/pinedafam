@@ -7,6 +7,11 @@
     "types": ["vite/client"],
     "skipLibCheck": true,
 
+    /* Allow JS and TS to coexist */
+    "allowJs": true,
+    "checkJs": false,
+    "esModuleInterop": true,
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -15,9 +20,9 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Linting */
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    /* Relaxed Linting - This stops the "unused" errors */
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },

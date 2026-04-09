@@ -1,18 +1,17 @@
-import React from 'react';
+// src/App.tsx
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingScreen from './components/LandingScreen';
 import MemberScreen from './components/MemberScreen';
 import BirthdayScreen from './components/BirthdayScreen';
 import AlbumScreen from './components/AlbumScreen';
-import Header from './components/Header'; // Make sure this path matches your folder structure
+import Header from './components/Header';
+import './App.css';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        {/* The Header is globally placed here */}
         <Header />
-        
         <Routes>
           <Route path="/" element={<LandingScreen />} />
           <Route path="/members" element={<MemberScreen />} />
