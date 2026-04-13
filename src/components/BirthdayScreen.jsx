@@ -10,21 +10,32 @@ const BirthdayScreen = () => {
 
   const daysOfWeek = ["S", "M", "T", "W", "TH", "F", "S"];
 
-  // --- NEW LOGIC: CHECK FOR TODAY'S BIRTHDAYS ---
+  // --- HELPER: GET ORDINAL SUFFIX (st, nd, rd, th) ---
+  const getOrdinal = (n) => {
+    const s = ["th", "st", "nd", "rd"];
+    const v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  };
+
+  // --- LOGIC: TODAY'S BIRTHDAYS (Supports Multiple + Different Ages) ---
   const getTodaysBirthdays = () => {
     const today = new Date();
     return membersData.filter(m => {
       const bday = new Date(m.birthday);
       return bday.getDate() === today.getDate() && 
              bday.getMonth() === today.getMonth();
+    }).map(m => {
+      const birthYear = new Date(m.birthday).getFullYear();
+      const ageTurning = today.getFullYear() - birthYear;
+      return { ...m, ageTurning };
     });
   };
 
   const todaysBirthdays = getTodaysBirthdays();
 
-  const getNearestBirthday = () => {
+  // --- LOGIC: NEAREST UPCOMING (Supports Multiple + Different Ages) ---
+  const getNearestBirthdays = () => {
     const today = new Date();
-    // We filter out people who have a birthday today so they don't show in "Upcoming"
     const upcoming = membersData
       .filter(m => {
         const bday = new Date(m.birthday);
@@ -36,14 +47,18 @@ const BirthdayScreen = () => {
         if (nextBday < today) {
           nextBday.setFullYear(today.getFullYear() + 1);
         }
-        return { ...m, nextBday };
+        const ageTurning = nextBday.getFullYear() - bday.getFullYear();
+        return { ...m, nextBday, ageTurning };
       })
       .sort((a, b) => a.nextBday - b.nextBday);
 
-    return upcoming[0];
+    if (upcoming.length === 0) return [];
+
+    const firstNearestDate = upcoming[0].nextBday.getTime();
+    return upcoming.filter(m => m.nextBday.getTime() === firstNearestDate);
   };
 
-  const nearest = getNearestBirthday();
+  const nearestGroup = getNearestBirthdays();
 
   const getBirthdaysForMonth = (monthIndex) => {
     return membersData.filter(m => {
@@ -83,19 +98,21 @@ const BirthdayScreen = () => {
             <h1 className="giant-title">Celebrations</h1>
             <p className="wide-subtitle">Annual Family Birthdays</p>
             
-            {/* --- NEW MESSAGE: TODAY'S CELEBRATION --- */}
+            {/* --- ANNOUNCEMENT SECTION --- */}
             {todaysBirthdays.length > 0 ? (
               <div className="today-announcement">
                 <p className="today-text pulsate">
                   🎉 Today is <span className="highlight-blue">
-                    {todaysBirthdays.map(m => `@${m.nickname || m.name}`).join(' & ')}
-                  </span>'s birthday! Wish them a happy birthday! 🎂
+                    {todaysBirthdays.map(m => `@${m.nickname || m.name}'s ${getOrdinal(m.ageTurning)}`).join(' & ')}
+                  </span> birthday! Wish them a happy birthday! 🎂
                 </p>
               </div>
             ) : (
-              nearest && (
+              nearestGroup.length > 0 && (
                 <p className="nearing-text">
-                  Next Celebration: <span className="highlight-white">@{nearest.nickname || nearest.name}</span> is nearing!
+                  Next Celebration: <span className="highlight-white">
+                    {nearestGroup.map(m => `@${m.nickname || m.name}'s ${getOrdinal(m.ageTurning)}`).join(' & ')} birthday
+                  </span> {nearestGroup.length > 1 ? 'are' : 'is'} nearing!
                 </p>
               )
             )}
