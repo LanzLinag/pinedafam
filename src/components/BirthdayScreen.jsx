@@ -8,7 +8,7 @@ const BirthdayScreen = () => {
     "July", "August", "September", "October", "November", "December"
   ];
 
-  const daysOfWeek = ["S", "M", "T", "W", "T", "F", "S"];
+  const daysOfWeek = ["S", "M", "T", "W", "TH", "F", "S"];
 
   // --- NEW LOGIC: CHECK FOR TODAY'S BIRTHDAYS ---
   const getTodaysBirthdays = () => {
