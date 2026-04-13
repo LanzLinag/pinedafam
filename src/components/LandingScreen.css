@@ -177,3 +177,31 @@
   from { opacity: 0; transform: translateX(20px); }
   to { opacity: 1; transform: translateX(0); }
 }
+
+.landing-main-title {
+  /* THE FIX: Force the color to white */
+  color: #ffffff !important;
+  
+  /* Existing styles */
+  font-size: clamp(4rem, 8vw, 7rem);
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: -4px;
+  line-height: 0.85;
+  
+  /* Ensure it sits above background layers */
+  position: relative;
+  z-index: 5;
+}
+
+/* Specific fix for mobile screens to ensure visibility */
+@media (max-width: 1024px) {
+  .landing-main-title {
+    color: #ffffff !important;
+    /* Ensure the font size doesn't overflow the screen */
+    font-size: 3.5rem; 
+    letter-spacing: -2px;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
