@@ -25,10 +25,16 @@ const LandingScreen = () => {
             and the memories that bring us together.
           </p>
 
-          <button className="get-started-btn" onClick={() => navigate('/members')}>
-            Get Started
-            <span className="arrow-icon">→</span>
-          </button>
+        <button 
+          className="get-started-btn" 
+          onClick={() => {
+            navigate('/members');
+            window.scrollTo(0, 0); // Force scroll to top
+          }}
+        >
+          Get Started
+          <span className="arrow-icon">→</span>
+        </button>
         </div>
 
         <footer className="split-footer" style={{ left: '50%', transform: 'translateX(-50%)' }}>
