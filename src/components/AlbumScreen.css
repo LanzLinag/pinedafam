@@ -174,3 +174,57 @@
   margin-top: 10px; /* Bring the subtitle closer to the title */
   margin-bottom: 30px;
 }
+
+/* GRID LAYOUT - FIXED FOR MOBILE */
+.album-grid {
+  display: grid;
+  /* CHANGED: 1fr ensures it stays within the screen width on small devices */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+  gap: 25px;
+  width: 100%;
+  max-width: 1200px;
+  z-index: 1;
+  /* Added to ensure the grid itself is centered */
+  margin: 0 auto; 
+}
+
+/* CARD DESIGN - REFINED PADDING */
+.album-card {
+  background: #0f121a;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  /* Reduced padding for mobile so content doesn't feel squashed */
+  padding: 30px; 
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* Ensures card doesn't exceed screen width */
+  box-sizing: border-box; 
+  width: 100%;
+}
+
+/* MOBILE SPECIFIC CENTERING */
+@media (max-width: 768px) {
+  .album-wrapper {
+    /* Reduce side padding on mobile to give cards more room to center */
+    padding: 100px 20px 80px 20px; 
+  }
+
+  .album-grid {
+    /* Forces single column that is perfectly centered */
+    grid-template-columns: 1fr; 
+    gap: 20px;
+  }
+
+  .album-title {
+    font-size: 1.5rem; /* Slightly smaller for mobile screens */
+  }
+  
+  .album-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

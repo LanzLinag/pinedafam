@@ -217,3 +217,34 @@
   margin-top: 10px; /* Bring the subtitle closer to the title */
   margin-bottom: 30px;
 }
+
+.today-announcement {
+  margin-top: 20px;
+  background: rgba(125, 211, 252, 0.1);
+  padding: 15px 30px;
+  border-radius: 50px;
+  border: 1px solid rgba(125, 211, 252, 0.3);
+  display: inline-block;
+}
+
+.today-text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f8fafc;
+  letter-spacing: 0.5px;
+}
+
+.highlight-blue {
+  color: #7dd3fc;
+  text-shadow: 0 0 10px rgba(125, 211, 252, 0.5);
+}
+
+.pulsate {
+  animation: pulse-blue 2s infinite;
+}
+
+@keyframes pulse-blue {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.02); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 1; }
+}

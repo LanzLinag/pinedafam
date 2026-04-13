@@ -10,16 +10,35 @@ const BirthdayScreen = () => {
 
   const daysOfWeek = ["S", "M", "T", "W", "T", "F", "S"];
 
+  // --- NEW LOGIC: CHECK FOR TODAY'S BIRTHDAYS ---
+  const getTodaysBirthdays = () => {
+    const today = new Date();
+    return membersData.filter(m => {
+      const bday = new Date(m.birthday);
+      return bday.getDate() === today.getDate() && 
+             bday.getMonth() === today.getMonth();
+    });
+  };
+
+  const todaysBirthdays = getTodaysBirthdays();
+
   const getNearestBirthday = () => {
     const today = new Date();
-    const upcoming = membersData.map(m => {
-      const bday = new Date(m.birthday);
-      let nextBday = new Date(today.getFullYear(), bday.getMonth(), bday.getDate());
-      if (nextBday < today) {
-        nextBday.setFullYear(today.getFullYear() + 1);
-      }
-      return { ...m, nextBday };
-    }).sort((a, b) => a.nextBday - b.nextBday);
+    // We filter out people who have a birthday today so they don't show in "Upcoming"
+    const upcoming = membersData
+      .filter(m => {
+        const bday = new Date(m.birthday);
+        return !(bday.getDate() === today.getDate() && bday.getMonth() === today.getMonth());
+      })
+      .map(m => {
+        const bday = new Date(m.birthday);
+        let nextBday = new Date(today.getFullYear(), bday.getMonth(), bday.getDate());
+        if (nextBday < today) {
+          nextBday.setFullYear(today.getFullYear() + 1);
+        }
+        return { ...m, nextBday };
+      })
+      .sort((a, b) => a.nextBday - b.nextBday);
 
     return upcoming[0];
   };
@@ -64,10 +83,21 @@ const BirthdayScreen = () => {
             <h1 className="giant-title">Celebrations</h1>
             <p className="wide-subtitle">Annual Family Birthdays</p>
             
-            {nearest && (
-              <p className="nearing-text">
-                Next Celebration: <span className="highlight-white">@{nearest.nickname || nearest.name}</span> is nearing!
-              </p>
+            {/* --- NEW MESSAGE: TODAY'S CELEBRATION --- */}
+            {todaysBirthdays.length > 0 ? (
+              <div className="today-announcement">
+                <p className="today-text pulsate">
+                  🎉 Today is <span className="highlight-blue">
+                    {todaysBirthdays.map(m => `@${m.nickname || m.name}`).join(' & ')}
+                  </span>'s birthday! Wish them a happy birthday! 🎂
+                </p>
+              </div>
+            ) : (
+              nearest && (
+                <p className="nearing-text">
+                  Next Celebration: <span className="highlight-white">@{nearest.nickname || nearest.name}</span> is nearing!
+                </p>
+              )
             )}
           </div>
         </header>
@@ -84,8 +114,8 @@ const BirthdayScreen = () => {
                 </div>
 
                 <div className="mini-calendar">
-                  {daysOfWeek.map(d => (
-                    <div key={d} className="weekday-label">{d}</div>
+                  {daysOfWeek.map((d, i) => (
+                    <div key={i} className="weekday-label">{d}</div>
                   ))}
                   {renderCalendarDays(index)}
                 </div>
