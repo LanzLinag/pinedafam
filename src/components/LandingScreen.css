@@ -158,18 +158,39 @@
     height: auto;
     min-height: 100vh;
     overflow-y: auto;
+    display: block; /* Allows natural vertical stacking */
   }
+
   .landing-left {
     flex: none;
-    height: 45vh;
     width: 100%;
+    height: auto; /* Let the image define the height */
     padding: 20px;
+    box-sizing: border-box;
   }
+
   .hero-split-img {
+    width: 100% !important;
+    height: auto !important; /* Forces the image to keep its proportions */
+    object-fit: initial; /* Removes the 'cover' or 'contain' logic */
+    display: block;
     border-radius: 24px;
+    
+    /* Animation stays the same */
+    opacity: 1;
+    transform: scale(1);
+    filter: saturate(1.2) brightness(1);
   }
+
   .landing-right {
-    padding: 40px 30px 100px 30px;
+    width: 100%;
+    padding: 20px 30px 100px 30px;
+    height: auto;
+  }
+
+  .landing-main-title {
+    font-size: 3.5rem;
+    color: #ffffff !important;
   }
 }
 
